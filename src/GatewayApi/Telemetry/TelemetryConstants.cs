@@ -6,6 +6,6 @@ namespace GatewayApi.Telemetry
     {
         public const string AppSource = "poc-api-gateway";
 
-        public static readonly Meter DemoMeter = new(AppSource);
+        public static readonly Meter PocMeter = new(AppSource);
     }
 }

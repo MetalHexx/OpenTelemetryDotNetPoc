@@ -1,25 +1,31 @@
+using GatewayApi.Telemetry;
+using Microsoft.AspNetCore.HttpLogging;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTelemetry();
+
+builder.Services.AddHttpLogging(options =>
+{
+    options.LoggingFields = HttpLoggingFields.All;
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseTraceIdMiddleware();
+//app.UseHttpLogging();  If you want to see HTTP logs, uncomment this.  Good for determining if your /metrics endpoint is being scraped.
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 app.MapControllers();
 
 app.Run();

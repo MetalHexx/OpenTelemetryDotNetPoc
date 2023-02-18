@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  gatewayapi:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: src/GatewayApi/Dockerfile

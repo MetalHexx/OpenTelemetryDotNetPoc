@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Diagnostics;
 
 namespace GatewayApi.Telemetry
@@ -7,7 +8,8 @@ namespace GatewayApi.Telemetry
     {
         private readonly ITelemetryService _telemetryService;
         private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
-        
+
+
         public TelemetryFilter(ITelemetryService telemetryService)
         {
             _telemetryService = telemetryService;
@@ -15,7 +17,7 @@ namespace GatewayApi.Telemetry
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-
+            Thread.Sleep(new Random().Next(0, 1000));
         }
 
         public void OnActionExecuted(ActionExecutedContext context)

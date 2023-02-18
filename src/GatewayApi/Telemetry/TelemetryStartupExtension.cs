@@ -1,9 +1,10 @@
-﻿using OpenTelemetry.Metrics;
+﻿using Microsoft.AspNetCore.HttpLogging;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 namespace GatewayApi.Telemetry
-{
+{   
     public static class TelemetryStartupExtension
     {
         public static void AddTelemetry(this IServiceCollection services)
@@ -34,6 +35,13 @@ namespace GatewayApi.Telemetry
                     });
                     //.AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
             });
+
+            services.AddHttpLogging(options =>
+            {
+                options.LoggingFields = HttpLoggingFields.All;
+            });
+
+            services.AddScoped<ITelemetryService, TelemetryService>();
         }
     }
 }

@@ -1,0 +1,30 @@
+receivers:
+  # Configures the promethus 
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: "poc-job"
+          scrape_interval: 15s
+          static_configs:
+            - targets: ["poc-gateway-api:443"]
+
+  # This is an alternate solution for simple scraping.  It is not as robust as the above receiver.
+  # prometheus_simple:
+  #   collection_interval: 1s
+  #   endpoint: "host.docker.internal:5276"
+  #   metrics_path: "/metrics"
+  #   use_service_account: false
+
+exporters:
+# This exporter creates a new collector scrape endpoint that contains the metrics that were scraped from the GatewayApi
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+
+extensions:
+
+service:
+  extensions: []
+  pipelines:
+    metrics:
+      receivers: [prometheus]
+      exporters: [prometheus]

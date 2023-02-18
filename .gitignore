@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/telemetry/influxdb/influxdb-storage
+/telemetry/grafana/var/lib/grafana
+/telemetry/otel-collector/resolv.conf
+/telemetry/otel-collector/hosts
+/telemetry/otel-collector/hostname

@@ -1,0 +1,9 @@
+﻿global:
+  scrape_interval: 15s
+  evaluation_interval: 15s 
+
+scrape_configs:
+  - job_name: "poc-job"
+    static_configs:
+      - targets: ["poc-collector:8889"]
+      

@@ -18,9 +18,12 @@ namespace GatewayApi.Telemetry
             {
                 options.SetResourceBuilder(resource);
                 options.AddConsoleExporter();
+                options.AddProcessor(new LogProcessor());
+                options.IncludeFormattedMessage = true;
+                options.ParseStateValues = true;
             });
 
-            builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Warning);
+            //builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Warning);
 
             builder.Services.AddTelemetry(resource);
         }

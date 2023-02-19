@@ -20,6 +20,8 @@ namespace GatewayApi.Telemetry
                 options.AddConsoleExporter();
             });
 
+            builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Warning);
+
             builder.Services.AddTelemetry(resource);
         }
         

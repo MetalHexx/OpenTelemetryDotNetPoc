@@ -23,7 +23,7 @@ namespace GatewayApi.Telemetry
                 options.ParseStateValues = true;
             });
 
-            //builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Warning);
+            builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Warning);
 
             builder.Services.AddTelemetry(resource);
         }

@@ -2,17 +2,29 @@
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using OpenTelemetry.Logs;
 
 namespace GatewayApi.Telemetry
 {   
     public static class TelemetryStartupExtension
     {
-        public static void AddTelemetry(this IServiceCollection services)
+        public static void AddTelemetry(this WebApplicationBuilder builder)
         {
             var resource = ResourceBuilder
                 .CreateDefault()
                 .AddService(TelemetryConstants.AppSource);
+            
+            builder.Logging.AddOpenTelemetry(options => 
+            {
+                options.SetResourceBuilder(resource);
+                options.AddConsoleExporter();
+            });
 
+            builder.Services.AddTelemetry(resource);
+        }
+        
+        public static void AddTelemetry(this IServiceCollection services, ResourceBuilder? resource)
+        {
             services.AddOpenTelemetryMetrics(builder =>
             {
                 builder

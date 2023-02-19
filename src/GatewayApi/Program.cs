@@ -8,7 +8,7 @@ builder.Services.AddControllers(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTelemetry();
+builder.AddTelemetry();
 
 var app = builder.Build();
 

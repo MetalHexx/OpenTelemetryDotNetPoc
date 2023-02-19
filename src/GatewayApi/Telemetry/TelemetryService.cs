@@ -11,7 +11,7 @@ namespace GatewayApi.Telemetry
             _httpRequestHistogram = PocMeter.CreateHistogram<long>(
                 name: "poc_http_response_histogram",
                 unit: "ms",
-                description: "Requests to api with durations");
+                description: "Api response histogram metrics with durations");
         }
 
         public void LogHttpResponseMetrics(FilterContextInfo responseInfo, long duration)

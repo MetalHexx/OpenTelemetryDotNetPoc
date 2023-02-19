@@ -20,7 +20,13 @@ namespace GatewayApi.Telemetry
         /// </summary>
         public void OnActionExecuting(ActionExecutingContext context)
         {
+            var randomSleep = new Random().Next(0, 1000);
             Thread.Sleep(new Random().Next(0, 1000));
+
+            if (randomSleep > 800)
+            {
+                throw new Exception("Throwing an exception over 800ms to simulate a 500 error");
+            }
         }
 
         public void OnActionExecuted(ActionExecutedContext context)

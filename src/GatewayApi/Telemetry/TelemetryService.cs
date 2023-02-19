@@ -16,10 +16,10 @@ namespace GatewayApi.Telemetry
 
         public void LogHttpResponseMetrics(FilterContextInfo responseInfo, long duration)
         {
-            LogHttpResponsequestMetric(responseInfo.Route, responseInfo.ClassName, responseInfo.MethodName, responseInfo.StatusCode, duration);
+            LogHttpResponseMetrics(responseInfo.Route, responseInfo.ClassName, responseInfo.MethodName, responseInfo.StatusCode, duration);
         }
 
-        public void LogHttpResponsequestMetric(string route, string className, string method, int statusCode, long duration)
+        public void LogHttpResponseMetrics(string route, string className, string method, int statusCode, long duration)
         {
             _httpRequestHistogram.Record(duration,
                 new KeyValuePair<string, object?>("route", route),

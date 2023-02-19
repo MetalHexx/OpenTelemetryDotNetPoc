@@ -14,7 +14,7 @@ namespace GatewayApi.Telemetry
                 description: "Requests to api with durations");
         }
 
-        public void LogHttpResponsequestMetric(ActionFilterResponseInfo responseInfo, long duration)
+        public void LogHttpResponseMetrics(FilterContextInfo responseInfo, long duration)
         {
             LogHttpResponsequestMetric(responseInfo.Route, responseInfo.ClassName, responseInfo.MethodName, responseInfo.StatusCode, duration);
         }

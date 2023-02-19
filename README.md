@@ -30,7 +30,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Instrument logging stack.  Elk and maybe try Loki
 - Instrument Zipkin to compare to Jaeger
 - Export metrics, tracing and logging as with an Otel Exporter only and disband Jaeger/Prometheus exporters.
-- External tooling to exlusively interface exclusively to collector
+- External tooling to interface exclusively to collector
 - Add another more apis and kafka for interesting results
 - Some load testing tooling to simulate a constant load
 

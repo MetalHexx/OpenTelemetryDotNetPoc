@@ -22,10 +22,10 @@ namespace GatewayApi.Telemetry
         public void LogHttpResponseMetrics(string route, string className, string method, int statusCode, long duration)
         {
             _httpRequestHistogram.Record(duration,
-                new KeyValuePair<string, object?>("route", route),
-                new KeyValuePair<string, object?>("class", className),
-                new KeyValuePair<string, object?>("method", method),
-                new KeyValuePair<string, object?>("http_status_code", statusCode.ToString()));
+                new ("route", route),
+                new ("class", className),
+                new ("method", method),
+                new ("http_status_code", statusCode.ToString()));
         }
     }
 }

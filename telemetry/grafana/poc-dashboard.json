@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 5,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -165,7 +165,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "{class=\"WeatherForecastController\", http_status_code=\"200\", job=\"poc-job\", method=\"Get\", route=\"WeatherForecast\"}"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -192,23 +217,11 @@
             "type": "prometheus",
             "uid": "csIMgP14k"
           },
-          "editorMode": "builder",
-          "expr": "increase(poc_http_response_histogram_ms_count[$__rate_interval])",
+          "editorMode": "code",
+          "expr": "sum by(job, route, class, method, http_status_code) (increase(poc_http_response_histogram_ms_count{job=~\"[[job]]\",route=~\"[[route]]\",class=~\"[[class]]\",method=~\"[[method]]\",http_status_code=~\"[[http_status_code]]\"}[$__rate_interval]))",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "csIMgP14k"
-          },
-          "editorMode": "builder",
-          "expr": "poc_http_response_histogram_ms_count",
-          "hide": true,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
         }
       ],
       "title": "Request Rate",
@@ -220,16 +233,177 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "poc-job"
+          ],
+          "value": [
+            "poc-job"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "csIMgP14k"
+        },
+        "definition": "label_values(job)",
+        "description": "The prometheus job to filter metrics on",
+        "hide": 0,
+        "includeAll": false,
+        "label": "",
+        "multi": true,
+        "name": "job",
+        "options": [],
+        "query": {
+          "query": "label_values(job)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "WeatherForecast"
+          ],
+          "value": [
+            "WeatherForecast"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "csIMgP14k"
+        },
+        "definition": "label_values({job=\"$job\"}, route)",
+        "description": "The route to filter on",
+        "hide": 0,
+        "includeAll": false,
+        "label": "",
+        "multi": true,
+        "name": "route",
+        "options": [],
+        "query": {
+          "query": "label_values({job=\"$job\"}, route)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "WeatherForecastController"
+          ],
+          "value": [
+            "WeatherForecastController"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "csIMgP14k"
+        },
+        "definition": "label_values({job=\"$job\"}, class)",
+        "description": "Api controller class to filter on",
+        "hide": 0,
+        "includeAll": false,
+        "label": "",
+        "multi": true,
+        "name": "class",
+        "options": [],
+        "query": {
+          "query": "label_values({job=\"$job\"}, class)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Get"
+          ],
+          "value": [
+            "Get"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "csIMgP14k"
+        },
+        "definition": "label_values({class=\"$class\"}, method)",
+        "description": "Api controller method to filter on",
+        "hide": 0,
+        "includeAll": false,
+        "label": "",
+        "multi": true,
+        "name": "method",
+        "options": [],
+        "query": {
+          "query": "label_values({class=\"$class\"}, method)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "200"
+          ],
+          "value": [
+            "200"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "csIMgP14k"
+        },
+        "definition": "label_values(http_status_code)",
+        "description": "Http status code to filter on",
+        "hide": 0,
+        "includeAll": false,
+        "label": "",
+        "multi": true,
+        "name": "http_status_code",
+        "options": [],
+        "query": {
+          "query": "label_values(http_status_code)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Open Telemetry DotNet Poc",
-  "uid": "DFYDgP1Vz",
-  "version": 9,
+  "title": "Open Telemetry DotNet Poc Copy",
+  "uid": "iEwr8P1Vk",
+  "version": 3,
   "weekStart": ""
 }

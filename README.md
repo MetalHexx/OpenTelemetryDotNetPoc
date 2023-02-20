@@ -54,3 +54,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
 Includes ability to filter by prometheus metric labels. Jaeger traces filter by the selected time range.
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana.png?raw=true" style=" width:40% ; height:40% " >
+
+Click into traces to get to rich information about the request.
+
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace.png?raw=true" style=" width:50% ; height:50% " >

@@ -22,7 +22,8 @@ namespace GatewayApi.Features.Weather
         [HttpGet(Name = "GetWeatherForecast")]
         public IActionResult Get()
         {
-            using var activity = _activityService.StartActivity(nameof(Get), _className);
+            using var activity = _activityService.StartActivity(_className, nameof(Get), "Getting weather from service");
+            
             var forecast = _weatherService.GetWeatherForecast();
             return Ok(forecast);
         }

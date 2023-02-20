@@ -1,3 +1,4 @@
+using GatewayApi.Features.Weather;
 using GatewayApi.Telemetry;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,9 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.AddTelemetry();
+
+builder.Services.AddSingleton<IActivityService, ActivityService>();
+builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
 var app = builder.Build();
 

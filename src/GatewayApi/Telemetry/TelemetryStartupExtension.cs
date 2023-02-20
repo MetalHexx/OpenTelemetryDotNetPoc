@@ -3,6 +3,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using OpenTelemetry.Logs;
+using static GatewayApi.Telemetry.TelemetryConstants;
 
 namespace GatewayApi.Telemetry
 {   
@@ -12,7 +13,7 @@ namespace GatewayApi.Telemetry
         {
             var resource = ResourceBuilder
                 .CreateDefault()
-                .AddService(TelemetryConstants.AppSource);
+                .AddService(TelemetryConstants.App_Source);
             
             builder.Logging.AddOpenTelemetry(options => 
             {
@@ -33,7 +34,7 @@ namespace GatewayApi.Telemetry
             services.AddOpenTelemetryMetrics(builder =>
             {
                 builder
-                .AddMeter(TelemetryConstants.AppSource)
+                .AddMeter(TelemetryConstants.App_Source)
                 .SetResourceBuilder(resource)
                 .AddAspNetCoreInstrumentation()
                 .AddPrometheusExporter(); //This creates a prometheus scrape endpoint.  The collector will scrape this and produce it's own scrape endpoint.
@@ -45,10 +46,13 @@ namespace GatewayApi.Telemetry
                 builder
                     .SetResourceBuilder(resource)
                     .AddAspNetCoreInstrumentation()
+                    .AddSource(App_Source)
+                    .AddProcessor(new TraceProcessor())
                     .AddJaegerExporter(options =>  //This exports tracing to Jaeger.
                     {
                         options.AgentHost = "poc-jaeger";
                         options.AgentPort = 6831;
+                        
                     });
                     //.AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
             });

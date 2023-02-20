@@ -1,4 +1,4 @@
-namespace GatewayApi
+namespace GatewayApi.Features.Weather
 {
     public class WeatherForecast
     {

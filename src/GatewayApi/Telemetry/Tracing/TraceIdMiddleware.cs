@@ -1,6 +1,6 @@
 ﻿using OpenTelemetry.Trace;
 
-namespace GatewayApi.Telemetry.Middleware
+namespace GatewayApi.Telemetry.Tracing
 {
     public static class TraceIdMiddlewareExtensions
     {

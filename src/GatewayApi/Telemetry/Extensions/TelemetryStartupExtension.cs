@@ -6,9 +6,9 @@ using OpenTelemetry.Logs;
 using GatewayApi.Telemetry.Metrics;
 using GatewayApi.Telemetry.Logging;
 using GatewayApi.Telemetry.Tracing;
-using static GatewayApi.Telemetry.TelemetryConstants;
+using static GatewayApi.Telemetry.Constants.TelemetryConstants;
 
-namespace GatewayApi.Telemetry
+namespace GatewayApi.Telemetry.Extensions
 {
     public static class TelemetryStartupExtension
     {
@@ -17,8 +17,8 @@ namespace GatewayApi.Telemetry
             var resource = ResourceBuilder
                 .CreateDefault()
                 .AddService(App_Source);
-            
-            builder.Logging.AddOpenTelemetry(options => 
+
+            builder.Logging.AddOpenTelemetry(options =>
             {
                 options.SetResourceBuilder(resource);
                 options.AddConsoleExporter();
@@ -31,7 +31,7 @@ namespace GatewayApi.Telemetry
 
             builder.Services.AddTelemetry(resource);
         }
-        
+
         public static void AddTelemetry(this IServiceCollection services, ResourceBuilder? resource)
         {
             services.AddOpenTelemetryMetrics(builder =>
@@ -55,9 +55,9 @@ namespace GatewayApi.Telemetry
                     {
                         options.AgentHost = "poc-jaeger";
                         options.AgentPort = 6831;
-                        
+
                     });
-                    //.AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
+                //.AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
             });
 
             services.AddHttpLogging(options =>

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
-namespace GatewayApi.Telemetry
+namespace GatewayApi.Telemetry.Constants
 {
     public static class TelemetryConstants
     {

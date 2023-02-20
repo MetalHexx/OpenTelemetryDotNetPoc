@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using GatewayApi.Telemetry.Metrics;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
 
-namespace GatewayApi.Telemetry.Filters
+namespace GatewayApi.Telemetry.Extensions
 {
     public static class FilterContextExtensions
     {

@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.Metrics;
-using GatewayApi.Telemetry.Filters;
-using static GatewayApi.Telemetry.TelemetryConstants;
+using static GatewayApi.Telemetry.Constants.TelemetryConstants;
 
 namespace GatewayApi.Telemetry.Metrics
 {

@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using static GatewayApi.Telemetry.TelemetryConstants;
+using static GatewayApi.Telemetry.Constants.TelemetryConstants;
 
 namespace GatewayApi.Telemetry.Tracing
 {

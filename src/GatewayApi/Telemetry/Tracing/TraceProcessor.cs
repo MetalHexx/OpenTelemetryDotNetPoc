@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using OpenTelemetry;
-using static GatewayApi.Telemetry.TelemetryConstants;
+using static GatewayApi.Telemetry.Constants.TelemetryConstants;
 
 namespace GatewayApi.Telemetry.Tracing
 {

@@ -1,7 +1,6 @@
 using GatewayApi.Features.Weather;
-using GatewayApi.Telemetry;
-using GatewayApi.Telemetry.Filters;
-using GatewayApi.Telemetry.Middleware;
+using GatewayApi.Telemetry.Extensions;
+using GatewayApi.Telemetry.Metrics;
 using GatewayApi.Telemetry.Tracing;
 
 var builder = WebApplication.CreateBuilder(args);

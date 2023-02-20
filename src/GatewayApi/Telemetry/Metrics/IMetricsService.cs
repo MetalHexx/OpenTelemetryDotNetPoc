@@ -1,7 +1,4 @@
-﻿using System.Net;
-using GatewayApi.Telemetry.Filters;
-
-namespace GatewayApi.Telemetry.Metrics
+﻿namespace GatewayApi.Telemetry.Metrics
 {
     public interface IMetricsService
     {

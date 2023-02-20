@@ -1,9 +1,9 @@
-﻿using GatewayApi.Telemetry.Metrics;
+﻿using GatewayApi.Telemetry.Extensions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics;
 using System.Net;
 
-namespace GatewayApi.Telemetry.Filters
+namespace GatewayApi.Telemetry.Metrics
 {
     public class MetricsFilter : IActionFilter, IResultFilter, IExceptionFilter
     {
@@ -16,7 +16,7 @@ namespace GatewayApi.Telemetry.Filters
         }
 
         /// <summary>
-        /// Add a random delay for more interesting metric visualization
+        /// Add a random delay and/or exception for more interesting metric generation
         /// </summary>
         public void OnActionExecuting(ActionExecutingContext context)
         {
@@ -29,27 +29,22 @@ namespace GatewayApi.Telemetry.Filters
             }
         }
 
-        public void OnActionExecuted(ActionExecutedContext context)
-        {
-
-        }
+        public void OnActionExecuted(ActionExecutedContext context) { }
 
         /// <summary>
         /// Write a metric for each exception result.  
-        /// Real status code isn't available at this point in the pipeline, so we set it to 500 here for now.
         /// </summary>
         public void OnException(ExceptionContext context)
         {
             var contextInfo = context.GetFilterContextInfo();
             contextInfo.StatusCode = (int)HttpStatusCode.InternalServerError;
 
+            //TODO: Create a clean response envelope without stack trace
+
             _metricService.LogHttpResponseMetrics(contextInfo, _stopwatch.ElapsedMilliseconds);
         }
 
-        public void OnResultExecuting(ResultExecutingContext context)
-        {
-
-        }
+        public void OnResultExecuting(ResultExecutingContext context) { }
 
         /// <summary>
         /// Write a metric on each non-exception result

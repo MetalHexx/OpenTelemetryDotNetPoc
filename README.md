@@ -57,4 +57,4 @@ Includes ability to filter by prometheus metric labels. Jaeger traces filter by 
 
 Click into traces to get to rich information about the request.
 
-<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace.png?raw=true" style=" width:50% ; height:50% " >
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace-details.png?raw=true" style=" width:50% ; height:50% " >

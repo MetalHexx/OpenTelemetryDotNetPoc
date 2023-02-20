@@ -133,7 +133,7 @@
           "refId": "A"
         }
       ],
-      "title": "Request Rate of Change",
+      "title": "Request Rate",
       "type": "timeseries"
     },
     {
@@ -221,7 +221,7 @@
           "refId": "A"
         }
       ],
-      "title": "Response Duration Distribution",
+      "title": "Request Duration Distribution",
       "transparent": true,
       "type": "heatmap"
     },
@@ -234,12 +234,13 @@
         "defaults": {
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "displayMode": "gradient-gauge",
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -247,7 +248,7 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 50
               }
             ]
           }
@@ -272,8 +273,7 @@
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 100
+                "id": "custom.width"
               }
             ]
           },
@@ -285,27 +285,45 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 339
+                "value": 100
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Trace name"
+              "options": "traceID"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 300
+                "id": "custom.displayMode",
+                "value": "auto"
               }
             ]
           },
           {
             "matcher": {
-              "id": "byName"
+              "id": "byName",
+              "options": "traceName"
             },
-            "properties": []
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Start time"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "auto"
+              }
+            ]
           }
         ]
       },
@@ -338,10 +356,12 @@
           "key": "Q-a70ae66c-d1f9-46d1-a6e2-63ce21dbb1e0-0",
           "queryType": "search",
           "refId": "A",
-          "service": "poc-api-gateway"
+          "service": "poc-api-gateway",
+          "tags": "http.status_code=$http_status_code http.route=$route"
         }
       ],
       "title": "Traces",
+      "transformations": [],
       "type": "table"
     },
     {
@@ -357,7 +377,7 @@
       "type": "row"
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 37,
   "style": "dark",
   "tags": [],
@@ -389,7 +409,7 @@
           "query": "label_values(job)",
           "refId": "StandardVariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -421,7 +441,7 @@
           "query": "label_values({job=\"$job\"}, route)",
           "refId": "StandardVariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -453,7 +473,7 @@
           "query": "label_values({job=\"$job\"}, class)",
           "refId": "StandardVariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -485,7 +505,7 @@
           "query": "label_values({class=\"$class\"}, method)",
           "refId": "StandardVariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -495,14 +515,10 @@
         "current": {
           "selected": true,
           "text": [
-            "200",
-            "301",
-            "500"
+            "200"
           ],
           "value": [
-            "200",
-            "301",
-            "500"
+            "200"
           ]
         },
         "datasource": {
@@ -521,7 +537,7 @@
           "query": "label_values(http_status_code)",
           "refId": "StandardVariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -530,13 +546,13 @@
     ]
   },
   "time": {
-    "from": "2023-02-19T05:20:11.299Z",
-    "to": "2023-02-19T05:23:13.468Z"
+    "from": "now-1h",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Open Telemetry DotNet Poc",
   "uid": "DFYDgP1Vz",
-  "version": 42,
+  "version": 56,
   "weekStart": ""
 }

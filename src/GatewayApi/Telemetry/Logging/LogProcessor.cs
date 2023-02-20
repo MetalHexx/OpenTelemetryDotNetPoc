@@ -4,7 +4,7 @@ using OpenTelemetry.Logs;
 namespace GatewayApi.Telemetry.Logging
 {
     /// <summary>
-    /// Log processor to allow for log modification during the log lifecycle.
+    /// Example log processor to allow for log modification during the log lifecycle.
     /// </summary>
     public class LogProcessor : BaseProcessor<LogRecord>
     {

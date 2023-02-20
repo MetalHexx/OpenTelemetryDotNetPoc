@@ -1,19 +1,20 @@
 ﻿using GatewayApi.Telemetry.Metrics;
 using Microsoft.AspNetCore.Mvc.Filters;
+using static GatewayApi.Telemetry.Constants.TelemetryConstants;
 
 namespace GatewayApi.Telemetry.Extensions
 {
     public static class FilterContextExtensions
     {
-        public static FilterContextInfo GetFilterContextInfo(this FilterContext context)
+        public static EndpointMetricTags GetEndpointMetricTags(this FilterContext context)
         {
-            return new FilterContextInfo
-            {
-                Route = context.ActionDescriptor.AttributeRouteInfo?.Template ?? "unknown",
-                ClassName = $"{context.RouteData.Values["controller"]}Controller",
-                MethodName = context.RouteData.Values["action"]?.ToString() ?? "unknown",
-                StatusCode = context.HttpContext.Response.StatusCode
-            };
+            return new EndpointMetricTags
+            (
+                StatusCode: context.HttpContext.Response.StatusCode,
+                Route:      context.ActionDescriptor.AttributeRouteInfo?.Template ?? Unknown,
+                ClassName:  $"{context.RouteData.Values["controller"]}Controller",
+                MethodName: context.RouteData.Values["action"]?.ToString() ?? Unknown
+            );
         }
     }
 }

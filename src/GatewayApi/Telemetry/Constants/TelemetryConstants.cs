@@ -16,5 +16,6 @@ namespace GatewayApi.Telemetry.Constants
         public const string Trace_Tag = "trace_id";
         public const string Span_Tag = "span_id";
         public const string Http_Status_Code_Tag = "http_status_code";
+        public const string Unknown = "Unknown";
     }
 }

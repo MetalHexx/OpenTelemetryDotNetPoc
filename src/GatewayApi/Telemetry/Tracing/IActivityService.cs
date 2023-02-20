@@ -4,6 +4,6 @@ namespace GatewayApi.Telemetry.Tracing
 {
     public interface IActivityService
     {
-        Activity? StartActivity(string className, string methodName, string description);
+        Activity? StartActivity(ActivityTags tags);
     }
 }

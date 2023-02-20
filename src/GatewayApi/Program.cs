@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options => 
 {
-    options.Filters.Add(typeof(MetricsFilter));
+    options.Filters.Add(typeof(EndpointMetricsFilter));
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

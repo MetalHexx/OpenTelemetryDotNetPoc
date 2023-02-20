@@ -65,7 +65,7 @@ namespace GatewayApi.Telemetry.Extensions
                 options.LoggingFields = HttpLoggingFields.All;
             });
 
-            services.AddScoped<IMetricsService, MetricsService>();
+            services.AddScoped<IEndpointMetricsService, EndpointMetricsService>();
         }
     }
 }

@@ -25,7 +25,8 @@ namespace GatewayApi.Features.Weather
 
         public WeatherForecast[] GetWeatherForecast()
         {
-            using var activity = _activityService.StartActivity(_className, nameof(GetWeatherForecast), "Generating weather data");
+            using var activity = _activityService.StartActivity(
+                new(_className, nameof(GetWeatherForecast), "Generating weather data"));
 
             var weather = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

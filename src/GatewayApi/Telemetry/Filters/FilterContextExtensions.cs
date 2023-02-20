@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
 
-namespace GatewayApi.Telemetry
+namespace GatewayApi.Telemetry.Filters
 {
     public static class FilterContextExtensions
     {

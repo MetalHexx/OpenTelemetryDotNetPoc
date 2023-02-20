@@ -3,17 +3,20 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using OpenTelemetry.Logs;
+using GatewayApi.Telemetry.Metrics;
+using GatewayApi.Telemetry.Logging;
+using GatewayApi.Telemetry.Tracing;
 using static GatewayApi.Telemetry.TelemetryConstants;
 
 namespace GatewayApi.Telemetry
-{   
+{
     public static class TelemetryStartupExtension
     {
         public static void AddTelemetry(this WebApplicationBuilder builder)
         {
             var resource = ResourceBuilder
                 .CreateDefault()
-                .AddService(TelemetryConstants.App_Source);
+                .AddService(App_Source);
             
             builder.Logging.AddOpenTelemetry(options => 
             {
@@ -34,7 +37,7 @@ namespace GatewayApi.Telemetry
             services.AddOpenTelemetryMetrics(builder =>
             {
                 builder
-                .AddMeter(TelemetryConstants.App_Source)
+                .AddMeter(App_Source)
                 .SetResourceBuilder(resource)
                 .AddAspNetCoreInstrumentation()
                 .AddPrometheusExporter(); //This creates a prometheus scrape endpoint.  The collector will scrape this and produce it's own scrape endpoint.
@@ -62,7 +65,7 @@ namespace GatewayApi.Telemetry
                 options.LoggingFields = HttpLoggingFields.All;
             });
 
-            services.AddScoped<ITelemetryService, TelemetryService>();
+            services.AddScoped<IMetricsService, MetricsService>();
         }
     }
 }

@@ -2,7 +2,7 @@
 using OpenTelemetry;
 using static GatewayApi.Telemetry.TelemetryConstants;
 
-namespace GatewayApi.Telemetry
+namespace GatewayApi.Telemetry.Tracing
 {
     /// <summary>
     /// Trace processor to intercept and enrich traces

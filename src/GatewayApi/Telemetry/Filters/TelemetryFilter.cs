@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using GatewayApi.Telemetry.Metrics;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics;
 using System.Net;
 
-namespace GatewayApi.Telemetry
+namespace GatewayApi.Telemetry.Filters
 {
-    public class TelemetryFilter : IActionFilter, IResultFilter, IExceptionFilter
+    public class MetricsFilter : IActionFilter, IResultFilter, IExceptionFilter
     {
-        private readonly ITelemetryService _telemetryService;
+        private readonly IMetricsService _metricService;
         private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
 
-
-        public TelemetryFilter(ITelemetryService telemetryService)
+        public MetricsFilter(IMetricsService metricService)
         {
-            _telemetryService = telemetryService;
+            _metricService = metricService;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace GatewayApi.Telemetry
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            
+
         }
 
         /// <summary>
@@ -42,13 +42,13 @@ namespace GatewayApi.Telemetry
         {
             var contextInfo = context.GetFilterContextInfo();
             contextInfo.StatusCode = (int)HttpStatusCode.InternalServerError;
-            
-            _telemetryService.LogHttpResponseMetrics(contextInfo,_stopwatch.ElapsedMilliseconds);
+
+            _metricService.LogHttpResponseMetrics(contextInfo, _stopwatch.ElapsedMilliseconds);
         }
 
         public void OnResultExecuting(ResultExecutingContext context)
         {
-            
+
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace GatewayApi.Telemetry
         public void OnResultExecuted(ResultExecutedContext context)
         {
             var contextInfo = context.GetFilterContextInfo();
-            _telemetryService.LogHttpResponseMetrics(contextInfo, _stopwatch.ElapsedMilliseconds);
+            _metricService.LogHttpResponseMetrics(contextInfo, _stopwatch.ElapsedMilliseconds);
         }
     }
 }

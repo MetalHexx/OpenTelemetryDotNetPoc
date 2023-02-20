@@ -1,4 +1,4 @@
-﻿using GatewayApi.Telemetry;
+﻿using GatewayApi.Telemetry.Tracing;
 using System.Diagnostics;
 
 

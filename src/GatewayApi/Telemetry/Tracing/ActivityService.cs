@@ -1,12 +1,8 @@
 ﻿using System.Diagnostics;
 using static GatewayApi.Telemetry.TelemetryConstants;
 
-namespace GatewayApi.Telemetry
+namespace GatewayApi.Telemetry.Tracing
 {
-    public interface IActivityService
-    {
-        Activity? StartActivity(string methodName, string className);
-    }
 
     public class ActivityService : IActivityService
     {

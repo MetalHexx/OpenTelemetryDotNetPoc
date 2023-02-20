@@ -1,7 +1,7 @@
 ﻿using OpenTelemetry;
 using OpenTelemetry.Logs;
 
-namespace GatewayApi.Telemetry
+namespace GatewayApi.Telemetry.Logging
 {
     /// <summary>
     /// Log processor to allow for log modification during the log lifecycle.

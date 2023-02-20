@@ -1,4 +1,4 @@
-﻿namespace GatewayApi.Telemetry
+﻿namespace GatewayApi.Telemetry.Filters
 {
     public class FilterContextInfo
     {

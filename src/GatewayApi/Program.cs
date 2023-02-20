@@ -1,11 +1,14 @@
 using GatewayApi.Features.Weather;
 using GatewayApi.Telemetry;
+using GatewayApi.Telemetry.Filters;
+using GatewayApi.Telemetry.Middleware;
+using GatewayApi.Telemetry.Tracing;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options => 
 {
-    options.Filters.Add(typeof(TelemetryFilter));
+    options.Filters.Add(typeof(MetricsFilter));
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

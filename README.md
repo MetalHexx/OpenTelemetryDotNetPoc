@@ -44,14 +44,18 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Jaeger: http://localhost:16686/search
 - Grafana: http://localhost:3000
 
-## Grafana Instructions:
+## Grafana 
+### Instructions:
 - Navigate to http://localhost:3000 and login with admin/admin
 - Add prometheus datasource with host: http://poc-prometheus:9090
 - Add Jaeger datasource with host: http://poc-jaeger:16686
 - Go to /telemetry/grafana folder and copy contents of poc-dashboard.json 
 - Create a new dashboard with "Import" and paste json
-
-Includes ability to filter by prometheus metric labels. Jaeger traces filter by the selected time range.
+### Features
+- Ability to filter metrics by metric tag variables. 
+- Ability to correlate Metrics and Traces by time range, route, or status code.
+  - Traces will not display if multiple values are selected on a given variable.  
+  - Make sure to only select single values for now.
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana.png?raw=true" style=" width:40% ; height:40% " >
 

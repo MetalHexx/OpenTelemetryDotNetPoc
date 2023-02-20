@@ -1,14 +1,8 @@
 ﻿using GatewayApi.Telemetry.Tracing;
-using System.Diagnostics;
 
 
 namespace GatewayApi.Features.Weather
 {
-    public interface IWeatherService
-    {
-        WeatherForecast[] GetWeatherForecast();
-    }
-    
     public class WeatherService : IWeatherService
     {
         private static readonly string[] _summaries = new[]
@@ -37,8 +31,6 @@ namespace GatewayApi.Features.Weather
             .ToArray();
 
             return weather;
-        }
-
-         
+        }         
     }
 }

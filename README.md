@@ -15,24 +15,21 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Grafana
 - Influx Db (for Grafana)
 
-### Current Setup and evolving:
-- Prometheus exporter used on GatewayApi
-- Collector scraping prometheus endpoint
-- Collector exposes a new prometheus endpoint
-- Prometheus scrapes collector
-- Jaeger Exporter used on GatewayApi
-- Traces written directly to Jaeger at the moment
+### Current Setup:
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/current-infrastructure.png?raw=true" style=" width:40% ; height:40% " >
+
 - Simulated api response time delays for variation
 - Simulated errors with random exceptions thrown (500 status code) for variation
 - Api filters to capture metrics with route, class, method, and status code labels to use for querying
+- Metric processor to enrich metric labels
+- Signal correlation with grafana -- see: Grafana Section
 
 ### Future Goals:
-- Instrument logging stack.  Elk and maybe try Loki
+- Continue making infrastructure vendor agnostic with collector
+- Continue improving signal correlation in Grafana
+- Instrument logging stack.  Maybe give Loki a try.
 - Instrument Zipkin to compare to Jaeger
-- Export metrics, tracing and logging as with an Otlp exporter only and disband Jaeger/Prometheus exporters.
-- External tooling to interface exclusively to collector
-- Add another more apis and kafka for interesting results
-- Some load testing tooling to simulate a constant load
+- Add load testing tooling to simulate a constant load for better demonstration
 
 ## Docker Instructions:
 - Select and run project with Docker Compose Startup project in Visual Studio.  

@@ -27,7 +27,7 @@ namespace GatewayApi.Telemetry.Extensions
                 options.ParseStateValues = true;
             });
 
-            builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Warning);
+            builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Information);  //Increase the logging level to reduce noise
 
             builder.Services.AddTelemetry(resource);
         }
@@ -56,14 +56,15 @@ namespace GatewayApi.Telemetry.Extensions
                         options.AgentHost = "poc-jaeger";
                         options.AgentPort = 6831;
 
-                    });
-                //.AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
+                    })
+                    .AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
             });
 
-            services.AddHttpLogging(options =>
-            {
-                options.LoggingFields = HttpLoggingFields.All;
-            });
+            //Uncomment to see traditional logging output
+            //services.AddHttpLogging(options =>
+            //{
+            //    options.LoggingFields = HttpLoggingFields.All;
+            //});
 
             services.AddScoped<IEndpointMetricsService, EndpointMetricsService>();
         }

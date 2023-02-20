@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseOpenTelemetryPrometheusScrapingEndpoint();
 app.UseTraceIdMiddleware();
-//app.UseHttpLogging();  If you want to see HTTP logs, uncomment this.  Good for determining if your /metrics endpoint is being scraped.
+//app.UseHttpLogging();  //If you want to see traditional HTTP logs, uncomment this.  Good for determining if your /metrics endpoint is being scraped.
 
 app.MapControllers();
 

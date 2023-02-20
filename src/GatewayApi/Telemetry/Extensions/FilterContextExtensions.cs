@@ -1,6 +1,5 @@
 ﻿using GatewayApi.Telemetry.Metrics;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Net;
 
 namespace GatewayApi.Telemetry.Extensions
 {

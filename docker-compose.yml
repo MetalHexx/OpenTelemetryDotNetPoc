@@ -19,6 +19,7 @@ services:
     image: otel/opentelemetry-collector-contrib:0.42.0
     ports:
       - 4317:4317
+      - 4319:4319 # Http Protobuf Otel Receiver endpoint
       - 8888:8888 # Collectors prometheus endpoint -- for metrics from the collector itself.  See: /telemtry/otel-collector/otel-collector.yaml
       - 8889:8889 # Exposed prometheus endpoint which contains the metrics that were scraped from the GatewayApi. -- See: /telemtry/otel-collector/otel-collector.yaml
       

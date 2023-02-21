@@ -1,4 +1,8 @@
 receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4319
   # Configures the collector to scrape the promethus endpoint provided by https://poc-gateway-api:443/metrics
   prometheus:
     config:
@@ -16,11 +20,24 @@ exporters:
   prometheus:
     endpoint: "0.0.0.0:8889"
 
+  jaeger:
+    endpoint: poc-jaeger:14250
+    tls:
+      insecure: true
+
+  #logging exporter will export the logs of data that has been received by the collector. This is very valuable for debugging to make sure 
+  #collector is receiving data properly.
+  logging:
+    loglevel: debug
+
 extensions:
 
 service:
   extensions: []
   pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [logging, jaeger]
     metrics:
       receivers: [prometheus]
       exporters: [prometheus]

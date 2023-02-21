@@ -27,7 +27,7 @@ namespace GatewayApi.Telemetry.Extensions
                 options.ParseStateValues = true;
             });
 
-            builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Information);  //Increase the logging level to reduce noise
+            builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Warning);  //Increase the logging level to reduce noise
 
             builder.Services.AddTelemetry(resource);
         }
@@ -51,13 +51,12 @@ namespace GatewayApi.Telemetry.Extensions
                     .AddAspNetCoreInstrumentation()
                     .AddSource(App_Source)
                     .AddProcessor(new TraceProcessor())
-                    .AddJaegerExporter(options =>  //This exports tracing to Jaeger.
+                    .AddOtlpExporter(options =>
                     {
-                        options.AgentHost = "poc-jaeger";
-                        options.AgentPort = 6831;
-
-                    })
-                    .AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
+                        options.Endpoint = new Uri("http://poc-collector:4319/v1/traces");
+                        options.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.HttpProtobuf;
+                    });
+                    //.AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
             });
 
             //Uncomment to see traditional logging output

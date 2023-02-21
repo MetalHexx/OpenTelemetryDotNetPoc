@@ -15,6 +15,17 @@ receivers:
           static_configs:
             - targets: ["poc-gateway-api"]
 
+processors:
+  #This batch processor will collect telemetry for 1s before exporting it.  This is the rate at which Jaeger will receive data
+  batch:
+    timeout: 1s
+  #This resource processor shows an example of how to enrich traces with a custom attribute.  See the "process" section in a trace in Jaeger.
+  resource: 
+    attributes:
+      - key: poc-test-key
+        value: "My cool custom trace attribute from the poc collector resource attribute processor"
+        action: insert
+
 exporters:
 # This exporter creates a new collector scrape endpoint that contains the metrics that were scraped from the GatewayApi
   prometheus:
@@ -37,6 +48,7 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
+      processors: [batch, resource]
       exporters: [logging, jaeger]
     metrics:
       receivers: [prometheus]

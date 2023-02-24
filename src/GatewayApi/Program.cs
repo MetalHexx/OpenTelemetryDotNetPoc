@@ -24,7 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseOpenTelemetryPrometheusScrapingEndpoint();
+//app.UseOpenTelemetryPrometheusScrapingEndpoint();  You can use this to expose a prometheus scrape endpoint if desired.  This is an alternative to using an Otel exporter.
 app.UseTraceIdMiddleware();
 //app.UseHttpLogging();  //If you want to see traditional HTTP logs, uncomment this.  Good for determining if your /metrics endpoint is being scraped.
 

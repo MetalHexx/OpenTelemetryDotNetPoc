@@ -3,23 +3,26 @@ receivers:
     protocols:
       http:
         endpoint: 0.0.0.0:4319
-  # Configures the collector to scrape the promethus endpoint provided by https://poc-gateway-api:443/metrics
-  prometheus:
-    config:
-      scrape_configs:
-        - job_name: "poc-job"
-          scrape_interval: 15s
-          scheme: https
-          tls_config:
-            insecure_skip_verify: true # The insecure_skip_verify field is set to true to allow the collector to scrape metrics over HTTPS without verifying the server's TLS certificate. In a production environment, you should set this field to false and provide a valid TLS certificate for the server.
-          static_configs:
-            - targets: ["poc-gateway-api"]
+        
+  # Configures the collector to scrape the promethus endpoint provided by https://poc-gateway-api:443/metrics.  See: app.UseOpenTelemetryPrometheusScrapingEndpoint() in program.cs
+  #prometheus:
+  #  config:
+  #    scrape_configs:
+  #      - job_name: "poc-job"
+  #        scrape_interval: 15s
+  #        scheme: https
+  #        tls_config:
+  #          insecure_skip_verify: true # The insecure_skip_verify field is set to true to allow the collector to scrape metrics over HTTPS without verifying the server's TLS certificate. In a production environment, you should set this field to false and provide a valid TLS certificate for the server.
+  #        static_configs:
+  #          - targets: ["poc-gateway-api"]
 
 processors:
   #This batch processor will collect telemetry for 1s before exporting it.  This is the rate at which Jaeger will receive data
   batch:
+    send_batch_size: 1
     timeout: 1s
-  #This resource processor shows an example of how to enrich traces with a custom attribute.  See the "process" section in a trace in Jaeger.
+
+  #This resource processor shows an example of how to enrich traces with a custom attribute.  See: "process" section on a trace in Jaeger.
   resource: 
     attributes:
       - key: poc-test-key
@@ -30,26 +33,29 @@ exporters:
 # This exporter creates a new collector scrape endpoint that contains the metrics that were scraped from the GatewayApi
   prometheus:
     endpoint: "0.0.0.0:8889"
+    namespace: poc #This will namespace the metrics.  ex: poc_http_response_histogram_bucket
 
   jaeger:
     endpoint: poc-jaeger:14250
     tls:
       insecure: true
 
-  #logging exporter will export the logs of data that has been received by the collector. This is very valuable for debugging to make sure 
-  #collector is receiving data properly.
+  ##logging exporter will export the logs of data that has been received by the collector. This is very valuable for debugging to make sure 
+  ##collector is receiving data properly.
   logging:
     loglevel: debug
 
-extensions:
-
 service:
+  telemetry:
+    logs:
+      level: "debug"
   extensions: []
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch, resource]
-      exporters: [logging, jaeger]
+      exporters: [jaeger]
     metrics:
-      receivers: [prometheus]
-      exporters: [prometheus]
+      receivers: [otlp]
+      #processors: [batch]
+      exporters: [logging, prometheus]

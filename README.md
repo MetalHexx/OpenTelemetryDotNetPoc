@@ -23,21 +23,25 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Api filters to capture metrics with route, class, method, and status code labels to use for querying
 - Metric processor to enrich metric labels
 - Signal correlation with grafana -- see: Grafana Section
+- Vendor agnostic through use of collector and otel exporters on api 
+
+### Current issues
+- Experiencing delayed metrics export with otel exporter compared to Prometheus exporter.  Investigating. See Stack overflow: https://stackoverflow.com/questions/75552005/opentelemetry-net-application-metrics-collected-slowly-by-collector
 
 ### Future Goals:
-- Continue making infrastructure vendor agnostic with collector
 - Continue improving signal correlation in Grafana
 - Instrument logging stack.  Maybe give Loki a try.
 - Instrument Zipkin to compare to Jaeger
 - Add load testing tooling to simulate a constant load for better demonstration
 
 ## Docker Instructions:
-- Select and run project with Docker Compose Startup project in Visual Studio.  
-- Currently experiencing collector scraping issues when using command line docker compose up.  Will fix soon.
+- From Visual Studio: Select and run project with Docker Compose Startup project in Visual Studio
+- From CLI:  docker compose up
 
 ## UI Endpoints to check out:
-- Swagger: https://localhost:5001/swagger/index.html
+- Swagger: http://localhost:5000/swagger/index.html
 - Prometheus: http://localhost:9090/graph
+- Collector Prometheus Export Endpont: http://localhost:8889
 - Jaeger: http://localhost:16686/search
 - Grafana: http://localhost:3000
 

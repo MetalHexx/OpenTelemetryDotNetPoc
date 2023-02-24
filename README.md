@@ -18,12 +18,12 @@ There are many ways to instrument this tooling. I will update this README.md to 
 ### Current Setup:
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/current-infrastructure.png?raw=true" style=" width:40% ; height:40% " >
 
+- Vendor agnostic instrumentation through use of an Otel collector gateway and otel exporters on api 
 - Simulated api response time delays for variation
 - Simulated errors with random exceptions thrown (500 status code) for variation
 - Api filters to capture metrics with route, class, method, and status code labels to use for querying
 - Metric processor to enrich metric labels
 - Signal correlation with grafana -- see: Grafana Section
-- Vendor agnostic through use of collector and otel exporters on api 
 
 ### Current issues
 - Experiencing delayed metrics export with otel exporter compared to Prometheus exporter.  Investigating. See Stack overflow: https://stackoverflow.com/questions/75552005/opentelemetry-net-application-metrics-collected-slowly-by-collector
@@ -33,6 +33,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Instrument logging stack.  Maybe give Loki a try.
 - Instrument Zipkin to compare to Jaeger
 - Add load testing tooling to simulate a constant load for better demonstration
+- Add a collector agent
 
 ## Docker Instructions:
 - From Visual Studio: Select and run project with Docker Compose Startup project in Visual Studio

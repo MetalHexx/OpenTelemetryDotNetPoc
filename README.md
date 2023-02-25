@@ -49,11 +49,14 @@ There are many ways to instrument this tooling. I will update this README.md to 
 ## Grafana 
 ### Instructions:
 - Navigate to http://localhost:3000 and login with admin/admin
-- Add prometheus datasource with host: http://poc-prometheus:9090
-- Add Jaeger datasource with host: http://poc-jaeger:16686
+- Add prometheus datasource with host: http://poc-prometheus:9090 and name "Prometheus"
+- Add Jaeger datasource with host: http://poc-jaeger:16686 and name "Jaeger"
 - Set the Jager datasource to scrape every 1s for best demo effect
 - Go to /telemetry/grafana folder and copy contents of poc-dashboard.json 
 - Create a new dashboard with "Import" and paste json
+
+> Data Source names have to be exactly as stated above, as those are referenced by Dashboard JSON. 
+
 ### Features
 - Ability to filter metrics by metric tag variables. 
 - Ability to correlate Metrics and Traces by time range, route, or status code.

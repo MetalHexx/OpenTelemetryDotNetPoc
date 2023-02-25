@@ -41,10 +41,7 @@
       "type": "row"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "csIMgP14k"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -122,10 +119,7 @@
       },
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "csIMgP14k"
-          },
+          "datasource": "Prometheus",
           "editorMode": "code",
           "expr": "sum by(job, route, class, method, http_status_code) (rate(poc_http_response_histogram_ms_count{job=~\"[[job]]\",route=~\"[[route]]\",class=~\"[[class]]\",method=~\"[[method]]\",http_status_code=~\"[[http_status_code]]\"}[$__rate_interval]))",
           "legendFormat": "{{label_name}}",
@@ -137,10 +131,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "csIMgP14k"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -206,10 +197,7 @@
       "pluginVersion": "9.3.6",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "csIMgP14k"
-          },
+          "datasource": "Prometheus",
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum by(le) (rate(poc_http_response_histogram_ms_bucket{job=~\"[[job]]\",route=~\"[[route]]\",class=~\"[[class]]\",method=~\"[[method]]\",http_status_code=~\"[[http_status_code]]\"}[$__rate_interval]))",
@@ -226,10 +214,7 @@
       "type": "heatmap"
     },
     {
-      "datasource": {
-        "type": "jaeger",
-        "uid": "MLh4jEJ4z"
-      },
+      "datasource": "Jaeger",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -349,10 +334,7 @@
       "pluginVersion": "9.3.6",
       "targets": [
         {
-          "datasource": {
-            "type": "jaeger",
-            "uid": "MLh4jEJ4z"
-          },
+          "datasource": "Jaeger",
           "key": "Q-a70ae66c-d1f9-46d1-a6e2-63ce21dbb1e0-0",
           "queryType": "search",
           "refId": "A",
@@ -393,10 +375,7 @@
             "poc-job"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "csIMgP14k"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values(job)",
         "description": "The prometheus job to filter metrics on",
         "hide": 0,
@@ -425,10 +404,7 @@
             "WeatherForecast"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "csIMgP14k"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values({job=\"$job\"}, route)",
         "description": "The route to filter on",
         "hide": 0,
@@ -457,10 +433,7 @@
             "WeatherForecastController"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "csIMgP14k"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values({job=\"$job\"}, class)",
         "description": "Api controller class to filter on",
         "hide": 0,
@@ -489,10 +462,7 @@
             "Get"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "csIMgP14k"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values({class=\"$class\"}, method)",
         "description": "Api controller method to filter on",
         "hide": 0,
@@ -521,10 +491,7 @@
             "200"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "csIMgP14k"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values(http_status_code)",
         "description": "Http status code to filter on",
         "hide": 0,

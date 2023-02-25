@@ -57,9 +57,15 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Ability to filter metrics by metric tag variables. 
 - Ability to correlate Metrics and Traces by time range, route, or status code.
   - Traces will not display if multiple values are selected on a given variable.  
-  - Make sure to only select single values for now.
+  - Make sure to only select a single value per variable for now if you want to see traces.
+
+Multiple Metrics
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana.png?raw=true" style=" width:40% ; height:40% " >
+
+Trace Correlation (limit 1 value per variable for now)
+
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-2.png?raw=true" style=" width:40% ; height:40% " >
 
 Click into traces to get to rich information about the request.
 

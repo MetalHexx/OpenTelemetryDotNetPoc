@@ -10,6 +10,7 @@ namespace GatewayApi.Telemetry.Metrics
         {
             _endpointResponseHistogram = PocMeter.CreateHistogram<long>(
                 name: "http_response_histogram_ms",
+                unit: "ms",
                 description: "Api response histogram metrics with durations");
         }
 

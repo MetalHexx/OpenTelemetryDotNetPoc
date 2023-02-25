@@ -51,16 +51,23 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Navigate to http://localhost:3000 and login with admin/admin
 - Add prometheus datasource with host: http://poc-prometheus:9090
 - Add Jaeger datasource with host: http://poc-jaeger:16686
+- Set the Jager datasource to scrape every 1s for best demo effect
 - Go to /telemetry/grafana folder and copy contents of poc-dashboard.json 
 - Create a new dashboard with "Import" and paste json
 ### Features
 - Ability to filter metrics by metric tag variables. 
 - Ability to correlate Metrics and Traces by time range, route, or status code.
   - Traces will not display if multiple values are selected on a given variable.  
-  - Make sure to only select single values for now.
+  - Make sure to only select a single value per variable for now if you want to see traces.
+
+#### Filter Metrics With Variables
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana.png?raw=true" style=" width:40% ; height:40% " >
 
-Click into traces to get to rich information about the request.
+#### Trace Correlation (limited to 1 value per variable right now)
+
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-2.png?raw=true" style=" width:40% ; height:40% " >
+
+#### Click into traces to get to rich information about the request.
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace-details.png?raw=true" style=" width:50% ; height:50% " >

@@ -12,7 +12,7 @@ using static GatewayApi.Telemetry.Constants.TelemetryConstants;
 namespace GatewayApi.Telemetry.Extensions
 {
     public static class TelemetryStartupExtension
-    {
+    {   
         public static void AddTelemetry(this WebApplicationBuilder builder)
         {
             var resource = ResourceBuilder
@@ -21,7 +21,7 @@ namespace GatewayApi.Telemetry.Extensions
 
             builder.Logging.AddOpenTelemetry(options =>
             {
-                options.SetResourceBuilder(resource);                
+                options.SetResourceBuilder(resource);
                 options.AddProcessor(new LogProcessor());
                 options.IncludeFormattedMessage = true;
                 options.ParseStateValues = true;
@@ -41,12 +41,13 @@ namespace GatewayApi.Telemetry.Extensions
                 .AddMeter(App_Source)
                 .SetResourceBuilder(resource!)
                 .AddAspNetCoreInstrumentation()
-                .AddOtlpExporter(options =>
+                .AddOtlpExporter((exporterOptions, metricReaderOptions) =>
                 {
-                    options.Endpoint = new Uri("http://poc-collector:4319/v1/metrics");
-                    options.Protocol = OtlpExportProtocol.HttpProtobuf;
-                    options.ExportProcessorType = ExportProcessorType.Simple;
-                    
+                    exporterOptions.Endpoint = new Uri("http://poc-collector:4319/v1/metrics");
+                    exporterOptions.Protocol = OtlpExportProtocol.HttpProtobuf;
+                    exporterOptions.ExportProcessorType = ExportProcessorType.Simple;
+                    metricReaderOptions.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 1000;
+
                     //You can optionally batch exports for efficiency.
                     //options.ExportProcessorType = ExportProcessorType.Batch;
                     //options.BatchExportProcessorOptions = new BatchExportProcessorOptions<Activity>()

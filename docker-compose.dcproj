@@ -21,6 +21,7 @@
     <None Include="telemetry\prometheus\prometheus.yml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\" />
     <Folder Include="telemetry\influxdb\" />
   </ItemGroup>
 </Project>

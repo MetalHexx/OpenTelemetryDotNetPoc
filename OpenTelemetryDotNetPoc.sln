@@ -9,6 +9,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{84254E2C-BDF5-4A1B-94CA-CF3511EDB4F4}"
 	ProjectSection(SolutionItems) = preProject
+		assets\current-infrastructure.png = assets\current-infrastructure.png
+		assets\grafana-2.png = assets\grafana-2.png
+		assets\grafana-trace-details.png = assets\grafana-trace-details.png
 		assets\grafana.png = assets\grafana.png
 	EndProjectSection
 EndProject

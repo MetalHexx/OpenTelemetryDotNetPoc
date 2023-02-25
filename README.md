@@ -71,3 +71,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
 #### Click into traces to get to rich information about the request.
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace-details.png?raw=true" style=" width:50% ; height:50% " >
+
+## Additional Resources
+#### Dotnet OTLP Exporter Documenation: 
+https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol/README.md

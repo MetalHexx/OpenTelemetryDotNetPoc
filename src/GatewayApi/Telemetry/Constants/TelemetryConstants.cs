@@ -5,6 +5,7 @@ namespace GatewayApi.Telemetry.Constants
 {
     public static class TelemetryConstants
     {
+        public const string App_Settings_Log_Level = "Logging:LogLevel:Default";
         public const string App_Source = "poc-api-gateway";
 
         public static readonly Meter PocMeter = new(App_Source);

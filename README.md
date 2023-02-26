@@ -8,10 +8,12 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Net 6 Web Api w/Controllers
 - Docker Compose
 - System.Diagnostics (uses open telemetry standards)
+- Serilog w/OpenTelemetry Sink
 - OpenTelemetry .net packages
 - OpenTelemetry Collector
-- Prometheus
-- Jaeger
+- Prometheus (Metrics)
+- Jaeger (Tracing)
+- Loki (Logging)
 - Grafana
 - Influx Db (for Grafana)
 
@@ -21,7 +23,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Vendor agnostic instrumentation through use of an Otel collector gateway and otel exporters on api 
 - Simulated api response time delays for variation
 - Simulated errors with random exceptions thrown (500 status code) for variation
-- Api filters to capture metrics with route, class, method, and status code labels to use for querying
+- Api filters to capture metrics with route, class, class method, and http status code labels to use for querying
 - Metric processor to enrich metric labels
 - Signal correlation with grafana -- see: Grafana Section
 
@@ -30,10 +32,12 @@ There are many ways to instrument this tooling. I will update this README.md to 
 
 ### Future Goals:
 - Continue improving signal correlation in Grafana
-- Instrument logging stack.  Maybe give Loki a try.
 - Instrument Zipkin to compare to Jaeger
+- Instrument Elk Stack to compare to Loki
 - Add load testing tooling to simulate a constant load for better demonstration
 - Add a collector agent
+- Improve metric and tracing code in application
+- Try adding adding another service and something like Kafka to demonstrate trace propagation across services
 
 ## Docker Instructions:
 - From Visual Studio: Select and run project with Docker Compose Startup project in Visual Studio
@@ -51,9 +55,11 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Navigate to http://localhost:3000 and login with admin/admin
 - Add prometheus datasource with host: http://poc-prometheus:9090
 - Add Jaeger datasource with host: http://poc-jaeger:16686
+- Add Loki datasource with host: http://poc-loki:3100
 - Set the Jager datasource to scrape every 1s for best demo effect
 - Go to /telemetry/grafana folder and copy contents of poc-dashboard.json 
-- Create a new dashboard with "Import" and paste json
+- Create a new dashboard with "Import" and paste the dashboard json
+  - Select the datasources you set up previously during the import process
 ### Features
 - Ability to filter metrics by metric tag variables. 
 - Ability to correlate Metrics and Traces by time range, route, or status code.

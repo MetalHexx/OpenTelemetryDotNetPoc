@@ -18,7 +18,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Influx Db (for Grafana)
 
 ### Current Setup:
-<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/current-infrastructure.png?raw=true" style=" width:40% ; height:40% " >
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/current-infrastructure-diagram.png?raw=true" style=" width:40% ; height:40% " >
 
 - Vendor agnostic instrumentation through use of an Otel collector gateway and otel exporters on api 
 - Simulated api response time delays for variation

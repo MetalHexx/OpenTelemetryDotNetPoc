@@ -25,9 +25,9 @@ processors:
   #This resource processor shows an example of how to enrich traces with a custom attribute.  See: "process" section on a trace in Jaeger.
   resource: 
     attributes:
-      - key: poc-test-key
+      - action: insert
+        key: poc-test-key
         value: "My cool custom trace attribute from the poc collector resource attribute processor"
-        action: insert
 
 exporters:
 # This exporter creates a new collector scrape endpoint that contains the metrics that were scraped from the GatewayApi
@@ -40,15 +40,24 @@ exporters:
     tls:
       insecure: true
 
+  loki:
+    endpoint: http://poc-loki:3100/loki/api/v1/push
+    labels:
+      attributes:
+        http_status_code: ""
+        route_template: ""
+        class: ""
+        class_method: ""        
   ##logging exporter will export the logs of data that has been received by the collector. This is very valuable for debugging to make sure 
   ##collector is receiving data properly.
   logging:
     loglevel: debug
 
 service:
-  telemetry:
-    logs:
-      level: "debug"
+  # Uncomment to get collector debug logs
+  #telemetry:
+  #  logs:
+  #    level: "debug"
   extensions: []
   pipelines:
     traces:
@@ -58,4 +67,8 @@ service:
     metrics:
       receivers: [otlp]
       #processors: [batch]
-      exporters: [logging, prometheus]
+      exporters: [prometheus]      
+    logs:
+      receivers: [otlp]
+      processors: []
+      exporters: [loki, logging]

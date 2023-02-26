@@ -16,15 +16,15 @@ namespace GatewayApi.Telemetry.Metrics
 
         public void RecordEndpointMetrics(EndpointMetricTags responseInfo, long duration)
         {
-            RecordEndpointMetrics(responseInfo.Route, responseInfo.ClassName, responseInfo.MethodName, responseInfo.StatusCode, duration);
+            RecordEndpointMetrics(responseInfo.RouteTemplate, responseInfo.ClassName, responseInfo.ClassMethodName, responseInfo.StatusCode, duration);
         }
 
         public void RecordEndpointMetrics(string route, string className, string method, int statusCode, long duration)
         {
             _endpointResponseHistogram.Record(duration,
-                new(Route_Tag, route),
+                new(Route_Template_Tag, route),
                 new(Class_Tag, className),
-                new(Method_Tag, method),
+                new(Class_Method_Tag, method),
                 new(Http_Status_Code_Tag, statusCode.ToString()));
         }
     }

@@ -20,14 +20,8 @@ namespace GatewayApi.Telemetry.Logging
         /// You can customize the log record on end.
         /// </summary>
         public override void OnEnd(LogRecord data)
-        {   
-            //Just having fun with colors to make debugging a little more enjoyable ;)
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("--------------------------------------------------------------------------------------");            
-            Console.WriteLine();
+        {
             base.OnEnd(data);
-            Console.ForegroundColor = ConsoleColor.Magenta;
         }
     }
 }

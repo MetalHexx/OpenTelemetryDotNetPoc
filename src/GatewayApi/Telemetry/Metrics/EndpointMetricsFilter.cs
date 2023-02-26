@@ -34,7 +34,7 @@ namespace GatewayApi.Telemetry.Metrics
         /// Recording a metric for each exception result.  
         /// </summary>
         public void OnException(ExceptionContext context)
-        {
+        {   
             var tags = context.GetEndpointMetricTags() with 
             { 
                 StatusCode = StatusCodes.Status500InternalServerError 

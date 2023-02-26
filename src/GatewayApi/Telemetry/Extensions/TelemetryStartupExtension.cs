@@ -4,10 +4,10 @@ using OpenTelemetry.Trace;
 using GatewayApi.Telemetry.Metrics;
 using OpenTelemetry;
 using OpenTelemetry.Exporter;
-using GatewayApi.Telemetry.Logging;
-using OpenTelemetry.Logs;
 using GatewayApi.Telemetry.Tracing;
+using Serilog;
 using static GatewayApi.Telemetry.Constants.TelemetryConstants;
+using static Serilog.Sinks.OpenTelemetry.OpenTelemetrySink;
 
 namespace GatewayApi.Telemetry.Extensions
 {
@@ -19,21 +19,34 @@ namespace GatewayApi.Telemetry.Extensions
                 .CreateDefault()
                 .AddService(App_Source);
 
-            builder.Logging.AddOpenTelemetry(options =>
-            {
-                options.SetResourceBuilder(resource);
-                options.AddProcessor(new LogProcessor());
-                options.IncludeFormattedMessage = true;
-                options.ParseStateValues = true;
-                //options.AddConsoleExporter();
-            });
-
-            builder.Logging.AddFilter<OpenTelemetryLoggerProvider>("*", LogLevel.Information);  //Increase the logging level to reduce noise
-
-            builder.Services.AddTelemetry(resource);
+            builder.AddLoggingTelemetry();
+            builder.Services.AddMetricsTelemetry(resource);
+            builder.Services.AddTracingTelemetry(resource);
+        }
+        public static void AddLoggingTelemetry(this WebApplicationBuilder builder)
+        {            
+            builder.Host.UseSerilog((context, config) => config
+                .ReadFrom.Configuration(context.Configuration)
+                .MinimumLevel.Information()
+                .Enrich.WithMessageTemplate()
+                .Enrich.WithMessageTemplateHash()
+                .Enrich.WithTraceIdAndSpanId()
+                .WriteTo.OpenTelemetry(
+                    endpoint: "http://poc-collector:4319/v1/logs",
+                    protocol: OtlpProtocol.HttpProtobuf,
+                    batchSizeLimit: 2,
+                    batchPeriod: 2,
+                    batchQueueLimit: 10,
+                    resourceAttributes: new Dictionary<string, object>()
+                    {
+                        {"service.name", App_Source},
+                        {"index", 10},
+                        {"flag", true},
+                        {"pi", 3.14}
+                    }));
         }
 
-        public static void AddTelemetry(this IServiceCollection services, ResourceBuilder? resource)
+        public static void AddMetricsTelemetry(this IServiceCollection services, ResourceBuilder? resource)
         {
             services.AddOpenTelemetryMetrics(builder =>
             {
@@ -56,11 +69,16 @@ namespace GatewayApi.Telemetry.Extensions
                     //    ScheduledDelayMilliseconds = 1000,
                     //    ExporterTimeoutMilliseconds = 1000
                     //};
-                })
+                });
                 //.AddPrometheusExporter(); //Creates a prometheus exporter. The collector will scrape this and produce it's own scrape endpoint.  See: app.UseOpenTelemetryPrometheusScrapingEndpoint() in program.cs
-                .AddConsoleExporter();  //Exports logs to console exporter.  Useful for debugging.
+                //.AddConsoleExporter();  //Exports logs to console exporter.  Useful for debugging.
             });
 
+            services.AddScoped<IEndpointMetricsService, EndpointMetricsService>();
+        }
+
+        public static void AddTracingTelemetry(this IServiceCollection services, ResourceBuilder? resource)
+        {
             services.AddOpenTelemetryTracing(builder =>
             {
                 builder
@@ -74,16 +92,8 @@ namespace GatewayApi.Telemetry.Extensions
                         options.Protocol = OtlpExportProtocol.HttpProtobuf;
                         options.ExportProcessorType = ExportProcessorType.Simple; //See: https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/sdk.md#built-in-span-processors
                     });
-                    //.AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
+                //.AddConsoleExporter();  //Uncomment this if you want to see traces exported to the console for debugging.
             });
-
-            //Uncomment to see traditional http logging output
-            //services.AddHttpLogging(options =>
-            //{
-            //    options.LoggingFields = HttpLoggingFields.All;
-            //});
-
-            services.AddScoped<IEndpointMetricsService, EndpointMetricsService>();
         }
     }
 }

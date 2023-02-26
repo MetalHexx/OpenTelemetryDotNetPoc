@@ -11,9 +11,9 @@ namespace GatewayApi.Telemetry.Extensions
             return new EndpointMetricTags
             (
                 StatusCode: context.HttpContext.Response.StatusCode,
-                Route:      context.ActionDescriptor.AttributeRouteInfo?.Template ?? Unknown,
+                RouteTemplate:      context.ActionDescriptor.AttributeRouteInfo?.Template ?? Unknown,
                 ClassName:  $"{context.RouteData.Values["controller"]}Controller",
-                MethodName: context.RouteData.Values["action"]?.ToString() ?? Unknown
+                ClassMethodName: context.RouteData.Values["action"]?.ToString() ?? Unknown
             );
         }
     }

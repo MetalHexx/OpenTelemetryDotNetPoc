@@ -25,8 +25,8 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Metric processor to enrich metric labels
 - Signal correlation with grafana -- see: Grafana Section
 
-### Current issues
-- Experiencing delayed metrics export with otel exporter compared to Prometheus exporter.  Investigating. See Stack overflow: https://stackoverflow.com/questions/75552005/opentelemetry-net-application-metrics-collected-slowly-by-collector
+### Issues
+- (FIXED) - Experiencing delayed metrics export with otel exporter compared to Prometheus exporter.   See Stack overflow: https://stackoverflow.com/questions/75552005/opentelemetry-net-application-metrics-collected-slowly-by-collector
 
 ### Future Goals:
 - Continue improving signal correlation in Grafana
@@ -71,3 +71,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
 #### Click into traces to get to rich information about the request.
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace-details.png?raw=true" style=" width:50% ; height:50% " >
+
+## Additional Resources
+#### Dotnet OTLP Exporter Documenation: 
+https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol/README.md

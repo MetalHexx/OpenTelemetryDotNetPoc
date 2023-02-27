@@ -23,7 +23,7 @@ processors:
     timeout: 1s
 
   #This resource processor shows an example of how to enrich traces with a custom attribute.  See: "process" section on a trace in Jaeger.
-  resource: 
+  resource/jaeger: 
     attributes:
       - action: insert
         key: poc-test-key
@@ -62,7 +62,7 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [batch, resource]
+      processors: [batch, resource/jaeger]
       exporters: [jaeger]
     metrics:
       receivers: [otlp]

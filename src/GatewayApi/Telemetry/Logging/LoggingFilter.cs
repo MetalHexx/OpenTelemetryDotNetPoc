@@ -14,9 +14,6 @@ namespace GatewayApi.Telemetry.Metrics
             _loggingContext = loggingContext;
         }
 
-        /// <summary>
-        /// Adding a random delay and/or exception for more interesting metric generation
-        /// </summary>
         public void OnActionExecuting(ActionExecutingContext context)
         {
             
@@ -25,7 +22,7 @@ namespace GatewayApi.Telemetry.Metrics
         public void OnActionExecuted(ActionExecutedContext context) { }
 
         /// <summary>
-        /// Recording a metric for each exception result.  
+        /// Recording log context for each exception result.  
         /// </summary>
         public void OnException(ExceptionContext context)
         {
@@ -42,7 +39,7 @@ namespace GatewayApi.Telemetry.Metrics
         public void OnResultExecuting(ResultExecutingContext context) { }
 
         /// <summary>
-        /// Record a metric on each non-exception result
+        /// Recording log context on each non-exception result
         /// </summary>
         public void OnResultExecuted(ResultExecutedContext context)
         {

@@ -20,7 +20,7 @@ namespace GatewayApi.Telemetry.Metrics
         public void OnActionExecuting(ActionExecutingContext context)
         {
             var randomSleep = new Random().Next(0, 1000);
-            Thread.Sleep(new Random().Next(0, 1000));
+            Thread.Sleep(randomSleep);
 
             if (randomSleep > 800)
             {

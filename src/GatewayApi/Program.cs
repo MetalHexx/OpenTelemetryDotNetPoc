@@ -2,6 +2,7 @@ using GatewayApi.Features.Weather;
 using GatewayApi.Telemetry.Extensions;
 using GatewayApi.Telemetry.Metrics;
 using GatewayApi.Telemetry.Tracing;
+using Hellang.Middleware.ProblemDetails;
 using Serilog;
 using Serilog.Events;
 
@@ -24,26 +25,28 @@ try
     });
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    builder.AddTelemetry();
+    builder.Services.ConfigureProblemDetails();
+    builder.AddTelemetry(); 
 
     builder.Services.AddSingleton<IActivityService, ActivityService>();
     builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
     var app = builder.Build();
 
+    app.UseProblemDetails();
+    
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
 
-    app.UseSerilogRequestLogging(config => 
+    app.UseSerilogRequestLogging(config =>
     {
         config.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
     });
 
     //app.UseOpenTelemetryPrometheusScrapingEndpoint();  You can use this to expose a prometheus scrape endpoint if desired.  This is an alternative to using an Otel exporter.
-    app.UseTraceIdMiddleware();
     //app.UseHttpLogging();  //If you want to see traditional HTTP logs, uncomment this.  Good for determining if your /metrics endpoint is being scraped.
 
     app.MapControllers();

@@ -7,7 +7,7 @@ using OpenTelemetry.Exporter;
 using GatewayApi.Telemetry.Tracing;
 using Serilog;
 using static GatewayApi.Telemetry.Constants.TelemetryConstants;
-using static Serilog.Sinks.OpenTelemetry.OpenTelemetrySink;
+using Serilog.Sinks.OpenTelemetry;
 
 namespace GatewayApi.Telemetry.Extensions
 {
@@ -24,26 +24,24 @@ namespace GatewayApi.Telemetry.Extensions
             builder.Services.AddTracingTelemetry(resource);
         }
         public static void AddLoggingTelemetry(this WebApplicationBuilder builder)
-        {            
+        {
             builder.Host.UseSerilog((context, config) => config
                 .ReadFrom.Configuration(context.Configuration)
                 .MinimumLevel.Information()
-                .Enrich.WithMessageTemplate()
-                .Enrich.WithMessageTemplateHash()
-                .Enrich.WithTraceIdAndSpanId()
-                .WriteTo.OpenTelemetry(
-                    endpoint: "http://poc-collector:4319/v1/logs",
-                    protocol: OtlpProtocol.HttpProtobuf,
-                    batchSizeLimit: 2,
-                    batchPeriod: 2,
-                    batchQueueLimit: 10,
-                    resourceAttributes: new Dictionary<string, object>()
+                .WriteTo.OpenTelemetry(options =>
+                {
+                    options.Endpoint = "http://poc-collector:4319/v1/logs";
+                    options.Protocol = OtlpProtocol.HttpProtobuf;
+                    options.ResourceAttributes = new Dictionary<string, object>
                     {
-                        {"service.name", App_Source},
-                        {"index", 10},
-                        {"flag", true},
-                        {"pi", 3.14}
-                    }));
+                        ["service.name"] = App_Source
+                    };
+                    options.IncludedData = IncludedData.MessageTemplateTextAttribute
+                        | IncludedData.TraceIdField
+                        | IncludedData.SpanIdField;
+                        
+
+                }));
         }
 
         public static void AddMetricsTelemetry(this IServiceCollection services, ResourceBuilder? resource)

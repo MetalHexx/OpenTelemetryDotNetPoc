@@ -51,12 +51,25 @@ There are many ways to instrument this tooling. I will update this README.md to 
 
 ## Grafana 
 ### Instructions:
-- Navigate to http://localhost:3000 and login with admin/admin
-- Add prometheus datasource with host: http://poc-prometheus:9090
+- Navigate to `http://localhost:3000` and login with admin/admin
+- Add prometheus datasource with host: `http://poc-prometheus:9090`
+- Add Loki datasource with host: `http://poc-loki:3100`
+  -  To create a link correlation to the trace, add a derived field with the following values:
+    - Name: `trace_id`
+    - Regex: `traceID=([\w\d]+)`
+    - Query: `${__value.raw}`
+    - Url Label: `Trace`
 - Add Jaeger datasource with host: http://poc-jaeger:16686
-- Add Loki datasource with host: http://poc-loki:3100
-- Set the Jager datasource to scrape every 1s for best demo effect
-- Go to /telemetry/grafana folder and copy contents of poc-dashboard.json 
+  - To create a link correlation to the log, in the `Trace to Logs` section use the following values:
+    - Data source: `Loki`
+    - Map tag names: `enabled`
+    - Add a Tag: `service_name`
+    - Span start `time shift: -1h`
+    - Span end time shift: `1h`
+    - Filter by Trace ID: `enabled`
+
+- Set the Jager datasource to scrape every `1s` for best demo effect
+- Go to the folder `/telemetry/grafana` and copy contents of `poc-dashboard.json`
 - Create a new dashboard with "Import" and paste the dashboard json
   - Select the datasources you set up previously during the import process
 ### Features

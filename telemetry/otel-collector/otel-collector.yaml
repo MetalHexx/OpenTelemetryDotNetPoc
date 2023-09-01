@@ -49,6 +49,7 @@ exporters:
         class: ""
         class_method: ""  
         service_name: ""
+        environment: ""
   ##logging exporter will export the logs of data that has been received by the collector. This is very valuable for debugging to make sure 
   ##collector is receiving data properly.
   logging:

@@ -6,6 +6,7 @@ namespace GatewayApi.Telemetry.Extensions
 {
     public static class FilterContextExtensions
     {
+        private static string? _env;
         public static EndpointMetricTags GetEndpointMetricTags(this FilterContext context)
         {
             return new EndpointMetricTags
@@ -14,7 +15,8 @@ namespace GatewayApi.Telemetry.Extensions
                 RouteTemplate:      context.ActionDescriptor.AttributeRouteInfo?.Template ?? Unknown,
                 ClassName:  $"{context.RouteData.Values["controller"]}Controller",
                 ClassMethodName: context.RouteData.Values["action"]?.ToString() ?? Unknown,
-                ServiceName: Service_Name
+                ServiceName: Service_Name,
+                Environment: _env!
             );
         }
     }

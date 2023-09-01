@@ -6,9 +6,13 @@ namespace GatewayApi.Telemetry.Metrics
 {
     public class EndpointMetricsService : IEndpointMetricsService
     {
+        private readonly IHostEnvironment _env;
         private Histogram<long> _endpointResponseHistogram;
-        public EndpointMetricsService()
+
+        public EndpointMetricsService(IHostEnvironment env)
         {
+            _env = env;
+
             _endpointResponseHistogram = PocMeter.CreateHistogram<long>(
                 name: "http_response_histogram_ms",
                 unit: "ms",
@@ -22,7 +26,9 @@ namespace GatewayApi.Telemetry.Metrics
                 new(Class_Tag, responseInfo.ClassName),
                 new(Class_Method_Tag, responseInfo.ClassMethodName),
                 new(Http_Status_Code_Tag, responseInfo.StatusCode),
-                new(Service_Name_Tag, Service_Name));
+                new(Service_Name_Tag, Service_Name),
+                new(Environment_Tag, _env.EnvironmentName));
+
         }
     }
 }

@@ -8,10 +8,12 @@ namespace GatewayApi.Telemetry.Metrics
     public class LoggingFilter : IActionFilter, IResultFilter, IExceptionFilter
     {
         private readonly IDiagnosticContext _loggingContext;
+        private readonly IHostEnvironment _env;
 
-        public LoggingFilter(IDiagnosticContext loggingContext)
+        public LoggingFilter(IDiagnosticContext loggingContext, IHostEnvironment env)
         {
             _loggingContext = loggingContext;
+            _env = env;
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
@@ -51,6 +53,7 @@ namespace GatewayApi.Telemetry.Metrics
             _loggingContext.Set(Class_Method_Tag, tags.ClassMethodName);
             _loggingContext.Set(Http_Status_Code_Tag, tags.StatusCode.ToString());
             _loggingContext.Set(Service_Name_Tag, tags.ServiceName);
+            _loggingContext.Set(Environment_Tag, _env.EnvironmentName);
         }
     }
 }

@@ -86,9 +86,12 @@ There are many ways to instrument this tooling. I will update this README.md to 
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana.png?raw=true" style=" width:40% ; height:40% " >
 
-#### Click into traces to get to rich information about the request.
+#### Click into traces to get to rich information about the request.  Click the "Logs for this span" to see corresponding logs for the trace.
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace-details.png?raw=true" style=" width:50% ; height:50% " >
+
+#### View correlated logs and traces by clicking "Logs for this span" or "Traces" to easily navigate between related telemtry.
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/log-trace-correlation.png?raw=true" style=" width:50% ; height:50% " >
 
 ## Additional Resources
 #### Dotnet OTLP Exporter Documenation: 

@@ -39,8 +39,6 @@ namespace GatewayApi.Telemetry.Extensions
                     options.IncludedData = IncludedData.MessageTemplateTextAttribute
                         | IncludedData.TraceIdField
                         | IncludedData.SpanIdField;
-                        
-
                 }));
         }
 

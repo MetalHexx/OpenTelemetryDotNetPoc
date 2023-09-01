@@ -87,11 +87,10 @@ There are many ways to instrument this tooling. I will update this README.md to 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana.png?raw=true" style=" width:40% ; height:40% " >
 
 #### View Detailed Trace Information.
-
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace-details.png?raw=true" style=" width:50% ; height:50% " >
 
 #### View Detailed Log Information.
-<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-log-details.png.png?raw=true" style=" width:50% ; height:50% " >
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-log-details.png?raw=true" style=" width:50% ; height:50% " >
 
 #### View correlated logs and traces by clicking "Logs for this span" or "Traces".
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/log-trace-correlation.png?raw=true" style=" width:50% ; height:50% " >

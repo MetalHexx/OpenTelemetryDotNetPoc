@@ -23,8 +23,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
 - Vendor agnostic instrumentation through use of an Otel collector gateway and otel exporters on api 
 - Simulated api response time delays for variation
 - Simulated errors with random exceptions thrown (500 status code) for variation
-- Api filters to capture metrics with route, class, class method, and http status code labels to use for querying
-- Metric processor to enrich metric labels
+- Api filters to enrich logs and metrics with route, class, class method, and http status code labels to use for querying
 - Signal correlation with grafana -- see: Grafana Section
 
 ### Issues

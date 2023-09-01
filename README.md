@@ -63,7 +63,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
   - To create a link correlation to the log, in the `Trace to Logs` section use the following values:
     - Data source: `Loki`
     - Map tag names: `enabled`
-    - Add a Tag: `service_name`
+    - Add a Tag: `environment`
     - Span start time shift: `-1h`
     - Span end time shift: `1h`
     - Filter by Trace ID: `enabled`

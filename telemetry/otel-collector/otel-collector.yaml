@@ -47,7 +47,8 @@ exporters:
         http_status_code: ""
         route_template: ""
         class: ""
-        class_method: ""        
+        class_method: ""  
+        service_name: ""
   ##logging exporter will export the logs of data that has been received by the collector. This is very valuable for debugging to make sure 
   ##collector is receiving data properly.
   logging:

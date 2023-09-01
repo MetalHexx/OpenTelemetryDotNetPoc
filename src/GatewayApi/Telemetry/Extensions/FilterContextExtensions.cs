@@ -13,7 +13,8 @@ namespace GatewayApi.Telemetry.Extensions
                 StatusCode: context.HttpContext.Response.StatusCode,
                 RouteTemplate:      context.ActionDescriptor.AttributeRouteInfo?.Template ?? Unknown,
                 ClassName:  $"{context.RouteData.Values["controller"]}Controller",
-                ClassMethodName: context.RouteData.Values["action"]?.ToString() ?? Unknown
+                ClassMethodName: context.RouteData.Values["action"]?.ToString() ?? Unknown,
+                ServiceName: Service_Name
             );
         }
     }

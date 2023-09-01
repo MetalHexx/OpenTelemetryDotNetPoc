@@ -10,7 +10,8 @@ namespace GatewayApi.Telemetry.Tracing
             var activity = PocActivitySource.StartActivity($"{tags.ClassName}.{tags.ClassMethodName}");
             activity?.SetTag(Class_Tag, tags.ClassName);
             activity?.SetTag(Class_Method_Tag, tags.ClassMethodName);
-            
+            activity?.SetTag(Service_Name_Tag, Service_Name);  //I shouldn't need this duplication...however makes jaeger --> loki correlation work in grafana.
+
             if (!string.IsNullOrWhiteSpace(tags.Description))
             {
                 activity?.AddEvent(new(tags.Description));

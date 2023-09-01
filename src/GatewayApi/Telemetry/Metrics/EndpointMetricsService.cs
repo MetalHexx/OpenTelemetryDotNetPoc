@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Metrics;
+﻿using Microsoft.AspNetCore.Routing;
+using System.Diagnostics.Metrics;
 using static GatewayApi.Telemetry.Constants.TelemetryConstants;
 
 namespace GatewayApi.Telemetry.Metrics
@@ -16,16 +17,12 @@ namespace GatewayApi.Telemetry.Metrics
 
         public void RecordEndpointMetrics(EndpointMetricTags responseInfo, long duration)
         {
-            RecordEndpointMetrics(responseInfo.RouteTemplate, responseInfo.ClassName, responseInfo.ClassMethodName, responseInfo.StatusCode, duration);
-        }
-
-        public void RecordEndpointMetrics(string route, string className, string method, int statusCode, long duration)
-        {
             _endpointResponseHistogram.Record(duration,
-                new(Route_Template_Tag, route),
-                new(Class_Tag, className),
-                new(Class_Method_Tag, method),
-                new(Http_Status_Code_Tag, statusCode.ToString()));
+                new(Route_Template_Tag, responseInfo.RouteTemplate),
+                new(Class_Tag, responseInfo.ClassName),
+                new(Class_Method_Tag, responseInfo.ClassMethodName),
+                new(Http_Status_Code_Tag, responseInfo.StatusCode),
+                new(Service_Name_Tag, Service_Name));
         }
     }
 }

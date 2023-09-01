@@ -17,7 +17,7 @@ namespace GatewayApi.Telemetry.Extensions
         {
             var resource = ResourceBuilder
                 .CreateDefault()
-                .AddService(App_Source);
+                .AddService(Service_Name);
 
             builder.AddLoggingTelemetry();
             builder.Services.AddMetricsTelemetry(resource);
@@ -32,10 +32,6 @@ namespace GatewayApi.Telemetry.Extensions
                 {
                     options.Endpoint = "http://poc-collector:4319/v1/logs";
                     options.Protocol = OtlpProtocol.HttpProtobuf;
-                    options.ResourceAttributes = new Dictionary<string, object>
-                    {
-                        ["service.name"] = App_Source
-                    };
                     options.IncludedData = IncludedData.MessageTemplateTextAttribute
                         | IncludedData.TraceIdField
                         | IncludedData.SpanIdField;
@@ -47,7 +43,7 @@ namespace GatewayApi.Telemetry.Extensions
             services.AddOpenTelemetryMetrics(builder =>
             {
                 builder
-                .AddMeter(App_Source)
+                .AddMeter(Service_Name)
                 .SetResourceBuilder(resource!)
                 .AddAspNetCoreInstrumentation()
                 .AddOtlpExporter((exporterOptions, metricReaderOptions) =>
@@ -80,7 +76,7 @@ namespace GatewayApi.Telemetry.Extensions
                 builder
                     .SetResourceBuilder(resource!)
                     .AddAspNetCoreInstrumentation()
-                    .AddSource(App_Source)
+                    .AddSource(Service_Name)
                     .AddProcessor(new TraceProcessor())
                     .AddOtlpExporter(options =>
                     {

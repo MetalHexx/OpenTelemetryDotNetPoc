@@ -30,10 +30,7 @@ namespace GatewayApi.Telemetry.Metrics
             {
                 StatusCode = StatusCodes.Status500InternalServerError
             };
-            _loggingContext.Set(Route_Template_Tag, tags.RouteTemplate);
-            _loggingContext.Set(Class_Tag, tags.ClassName);
-            _loggingContext.Set(Class_Method_Tag, tags.ClassMethodName);
-            _loggingContext.Set(Http_Status_Code_Tag, tags.StatusCode.ToString());
+            AddTagsToLoggingContext(tags);
         }
 
         public void OnResultExecuting(ResultExecutingContext context) { }
@@ -44,10 +41,16 @@ namespace GatewayApi.Telemetry.Metrics
         public void OnResultExecuted(ResultExecutedContext context)
         {
             var tags = context.GetEndpointMetricTags();
+            AddTagsToLoggingContext(tags);            
+        }
+
+        public void AddTagsToLoggingContext(EndpointMetricTags tags)
+        {
             _loggingContext.Set(Route_Template_Tag, tags.RouteTemplate);
             _loggingContext.Set(Class_Tag, tags.ClassName);
+            _loggingContext.Set(Class_Method_Tag, tags.ClassMethodName);
             _loggingContext.Set(Http_Status_Code_Tag, tags.StatusCode.ToString());
-            _loggingContext.Set(Class_Method_Tag, tags.ClassMethodName);            
+            _loggingContext.Set(Service_Name_Tag, tags.ServiceName);
         }
     }
 }

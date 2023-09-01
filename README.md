@@ -78,7 +78,7 @@ There are many ways to instrument this tooling. I will update this README.md to 
   - Traces will not display if multiple values are selected on a given variable.  
   - Make sure to only select a single value per variable for now if you want to see traces.
 
-#### Trace, Log and Metric Correlation With Variables
+#### View High Level Trace, Log and Metrics With Variables
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-2.png?raw=true" style=" width:40% ; height:40% " >
 
@@ -86,11 +86,13 @@ There are many ways to instrument this tooling. I will update this README.md to 
 
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana.png?raw=true" style=" width:40% ; height:40% " >
 
-#### Click into traces to get to rich information about the request.  Click the "Logs for this span" to see corresponding logs for the trace.
-
+#### View Detailed Trace Information.
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-trace-details.png?raw=true" style=" width:50% ; height:50% " >
 
-#### View correlated logs and traces by clicking "Logs for this span" or "Traces" to easily navigate between related telemtry.
+#### View Detailed Log Information.
+<img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/grafana-log-details.png?raw=true" style=" width:50% ; height:50% " >
+
+#### View correlated logs and traces by clicking "Logs for this span" or "Traces".
 <img src="https://github.com/MetalHexx/OpenTelemetryDotNetPoc/blob/main/assets/log-trace-correlation.png?raw=true" style=" width:50% ; height:50% " >
 
 ## Additional Resources
